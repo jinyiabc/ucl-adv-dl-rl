@@ -7,6 +7,9 @@ Created on Tue Mar 19 23:43:37 2019
 """
 
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
 
 # Initialize the state value
 value = np.zeros(101)
@@ -32,9 +35,25 @@ def function_4_5():
             dif += max(0, abs(v-value).sum())
         print("dif:",dif)
         if dif < theta:
-            print(policy)
-            print(value)
+#            print(policy)
+#            print(value)
+            
+            plt.figure(figsize=(10, 20))
+    
+            plt.subplot(2, 1, 1)
+            plt.plot(value)
+            plt.xlabel('Capital')
+            plt.ylabel('Value estimates')
+        
+            plt.subplot(2, 1, 2)
+            plt.scatter(state, policy)
+            plt.xlabel('Capital')
+            plt.ylabel('Final policy (stake)')
+        
+            plt.savefig('../images/figure_4_3.png')
+            plt.close()
             break
+    
 def expected_value(state, value):
     opt_action = temp = 0
     new_value = np.copy(value)
